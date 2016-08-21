@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name" translatable="false">k12edu</string>
+    <string name="second_title">考点</string>
+</resources>
