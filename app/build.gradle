@@ -16,7 +16,7 @@ android {
             storeFile file('../keystore/keystore.jks')
             storePassword '123456'
             keyAlias 'keystore'
-            keyPassword '123456'
+            keyPassword '123456' 
         }
     }
     lintOptions {
