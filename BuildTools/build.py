@@ -26,7 +26,7 @@ def createqrCode(data,img_file):   #生成二维码
     print(img_file)
     img.save(img_file)
     # 显示二维码图片
-    img.show()
+    #img.show()
 
 if __name__ == '__main__':
 

@@ -35,11 +35,10 @@ android {
     }
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/values-en'] } }
 
-    assemble {
-        doLast{
+    assembleRelease.doLast {
             println "apk is builded"
             createTheProduct();
-        }
+
     }
 
 
