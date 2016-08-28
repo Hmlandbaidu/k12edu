@@ -16,7 +16,7 @@ android {
             storeFile file('../keystore/keystore.jks')
             storePassword '123456'
             keyAlias 'keystore'
-            keyPassword '123456' 
+            keyPassword '123456'
         }
     }
     lintOptions {
@@ -34,6 +34,29 @@ android {
         }
     }
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/values-en'] } }
+
+    assemble {
+        doLast{
+            println "apk is builded"
+            createTheProduct();
+        }
+    }
+
+
+}
+
+def createTheProduct() {
+    println "CopyReleaseApk productChannelApk"
+    task("createTheProductTask", type: Exec) {
+        String buildPath = project.getProjectDir().getParent() + File.separator;
+        String pythonScript = buildPath + "BuildTools/build.py"
+        String srcPath = buildPath + "app/build/outputs/apk/app-release.apk"
+        String destPath = buildPath + "apks/"
+        commandLine "python", "${pythonScript}", "${srcPath}", "${destPath}"
+        doLast {
+            println 'Congratulations, your final package in ‘BuildTools/multiChannel/outputs’'
+        }
+    }.execute()
 }
 
 dependencies {
