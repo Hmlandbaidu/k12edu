@@ -7,20 +7,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.baidu.k12edu.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <TextView
+        android:id="@+id/push_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello dengshengjin!"
-        android:id="@+id/textView" />
+        android:text="Here displays push content" />
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="点击"
-        android:id="@+id/button"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView" />
+        android:layout_toRightOf="@+id/push_text"
+        android:visibility="gone"
+        android:text="点击" />
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/push_text"
+        android:layout_marginTop="100dp"
+        android:visibility="visible"
+        android:text="播放" />
 </RelativeLayout>

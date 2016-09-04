@@ -10,6 +10,10 @@ def exitsDir(path):         #判断是否存在文件
     return os.path.isdir(path)
     pass
 
+def cleanFile(sourcePath):  #删除文件夹
+    shutil.rmtree(sourcePath)
+    pass
+
 def createDir(path):        #创建文件夹
     os.makedirs(path)
     pass
@@ -43,11 +47,12 @@ if __name__ == '__main__':
     print("srcPath="+srcPath +",destPath="+destPath)
 
     if exitsDir(destPath):
-            print("the file exists!")
+        cleanFile(destPath);
+        print("the file exists!")
     else:
-            print("the file doesn't exists")
-            createDir(destPath)
+        print("the file doesn't exists")
+    createDir(destPath)
 
-    copeFile(srcPath,destPath)
-
-    createqrCode(destPath,destPath+"/qr_"+str(int(time.time()))+".png")
+    apkPath=destPath+"/app-release.apk"
+    copeFile(srcPath,apkPath)
+    createqrCode("http://192.168.0.103:8080/job/K12edu/ws/apks/app-release.apk",destPath+"/qr_"+str(int(time.time()))+".png")

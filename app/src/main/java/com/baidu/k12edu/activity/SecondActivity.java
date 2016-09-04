@@ -1,9 +1,11 @@
-package com.baidu.k12edu;
+package com.baidu.k12edu.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.baidu.k12edu.R;
 
 /**
  * Created by dengshengjin on 16/8/21.
