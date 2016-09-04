@@ -1,14 +1,17 @@
 package com.baidu.k12edu.activity;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mButton;
     private Button button1;
     private ServiceConnection serviceConnection;
+    private MusicRecevier musicRecevier;
     private MusicPlayService.MyBinder myBinder;
 
 
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         mPushText.setText("Here displays push content");
         startPush();
         bindMusic();
+        regitMusic();
         mButton = (Button) findViewById(R.id.button);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        button1=(Button)findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener(){
+        button1 = (Button) findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if (myBinder!=null){
-                   myBinder.onStartPlay();
-               }
+                if (myBinder != null) {
+                    myBinder.onStartPlay();
+                }
             }
         });
     }
@@ -63,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         stopService(new Intent(MainActivity.this, PushService.class));
         unbindService(serviceConnection);
+        unregisterReceiver(musicRecevier);
     }
 
     private void bindMusic() {
@@ -70,16 +76,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder services) {
                 myBinder = (MusicPlayService.MyBinder) services;
-                Log.i("1","Serice is connected");
+                Log.i("1", "Serice is connected");
             }
 
             @Override
             public void onServiceDisconnected(ComponentName componentName) {
-                myBinder=null;
+                myBinder = null;
             }
         };
         bindService(new Intent(MainActivity.this, MusicPlayService.class), serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
+    private void regitMusic() {
+        musicRecevier=new MusicRecevier();
+        registerReceiver(musicRecevier, new IntentFilter(MusicRecevier.MUSIC_ACTION));
+    }
 
+
+    private class MusicRecevier extends BroadcastReceiver {
+        public static final String MUSIC_ACTION = "MusicReceiver";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals("MusicReceiver")){
+                    Log.i("1","MusicReceiver is Recevied");
+                    long eventTime=intent.getLongExtra("eventTime",0);
+                    mPushText.setText(eventTime+"");
+                }
+        }
+    }
 }

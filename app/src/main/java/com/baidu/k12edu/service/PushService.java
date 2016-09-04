@@ -26,7 +26,7 @@ public class PushService extends Service {
         Log.i(" ", "PushServices is onCreate.");
     }
 
-    private static class PushThread extends Thread {
+    private static class PushThread extends Thread {    //线程
         private Context mContext;
 
         public PushThread(Context context) {
@@ -51,6 +51,10 @@ public class PushService extends Service {
         private void sendBroacast() {
             Intent intent = new Intent("com.edu.k12.receiver.PushRecevier");
             mContext.sendBroadcast(intent);
+
+            Intent intent1=new Intent("MusicReceiver");
+            intent1.putExtra("eventTime",System.currentTimeMillis());
+            mContext.sendBroadcast(intent1);
         }
     }
 
