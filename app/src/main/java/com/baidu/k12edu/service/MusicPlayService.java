@@ -13,12 +13,13 @@ import android.widget.Toast;
 public class MusicPlayService extends Service {
     @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
-        return new MyBinder();
+    public IBinder onBind(Intent intent) { //使用onBind方法
+        return new MyBinder();   //返回一个对象MyBinder
     }
 
-    public class MyBinder extends Binder {
+    public class MyBinder extends Binder {  //定义一个类MyBinder，定义一个开始播放的方法
         public void onStartPlay(){
+            //弹出一个toast：显示Start Play
             Toast.makeText(getApplicationContext(), "Start Play", Toast.LENGTH_SHORT).show();
         }
     }

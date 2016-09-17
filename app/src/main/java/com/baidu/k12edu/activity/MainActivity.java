@@ -22,7 +22,7 @@ import com.baidu.k12edu.service.MusicPlayService;
 import com.baidu.k12edu.service.PushService;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity { //主程序继承AppCompatActivity
     private TextView mPushText;  //成员变量
     private Button mButton;
     private Button button1;
@@ -40,39 +40,41 @@ public class MainActivity extends AppCompatActivity {
         startPush();
         bindMusic();
         regitMusic();
-        mButton = (Button) findViewById(R.id.button);
+        mButton = (Button) findViewById(R.id.button); //赋值button
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                //startActivity(intent);
+                startActivity(new Intent(MainActivity.this,LoginDemoActivity.class));
             }
         });
-        button1 = (Button) findViewById(R.id.button1);
+        button1 = (Button) findViewById(R.id.button1);//赋值button1
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if (myBinder != null) {
-                    myBinder.onStartPlay();
+            public void onClick(View view) {  //定义点击事件
+                if (myBinder != null) {   //如果不为空
+                    myBinder.onStartPlay();   //则开始播放
                 }
             }
         });
+
     }
 
-    private void startPush() {
-        startService(new Intent(MainActivity.this, PushService.class));
+    private void startPush() {   //开始推送消息
+        startService(new Intent(MainActivity.this, PushService.class));  //从MainActivity跳到PushService
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy() {   //点击返回键
         super.onDestroy();
-        stopService(new Intent(MainActivity.this, PushService.class));
-        unbindService(serviceConnection);
-        unregisterReceiver(musicRecevier);
+        stopService(new Intent(MainActivity.this, PushService.class));  //结束Service
+        unbindService(serviceConnection);  //解绑Service
+        unregisterReceiver(musicRecevier);  //暂停播放
     }
 
-    private void bindMusic() {
-        serviceConnection = new ServiceConnection() {
+    private void bindMusic() {  //绑定Service
+        serviceConnection = new ServiceConnection() { //建立新的对象，有两个方法
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder services) {
                 myBinder = (MusicPlayService.MyBinder) services;

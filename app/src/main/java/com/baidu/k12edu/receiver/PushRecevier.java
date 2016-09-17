@@ -11,8 +11,8 @@ import android.util.Log;
 public class PushRecevier extends BroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("com.edu.k12.receiver.PushRecevier")){
+    public void onReceive(Context context, Intent intent) {  //接收广播
+        if (intent.getAction().equals("com.edu.k12.receiver.PushRecevier")){//只有监听到是这个接收器，才会打出log
             Log.i("1","Recevier is onRecevie!");
         }
     }

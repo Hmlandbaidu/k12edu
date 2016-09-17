@@ -13,12 +13,12 @@
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SecondActivity">
-        </activity>
+        <activity android:name=".activity.SecondActivity"/>
+        <activity android:name=".activity.LoginDemoActivity"/>
+
         <service android:name=".service.PushService">
             <intent-filter>
                 <action android:name="com.edu.k12.service.PushService">  //android.exported="true"声明暴露
